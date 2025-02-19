@@ -7,21 +7,38 @@ const quoteDisplay = document.getElementById("quote-display");
 const quoteInput = document.getElementById("quote-input");
 const timer = document.getElementById("timer");
 // research how to get user selection from user !!!!
+//following calls difficulty elements from html
 const userDifficultyInput = document.getElementById("userSelect"); 
+
+//following gets difficulty selection from user
+const difficultySelection = userDifficultyInput.ownerDocument.getSelection();
+//following store selection as a string
+const userSelection = difficultySelection.toString();
+//following logs input to console
+console.log(userSelection);
+
 ///which ever one they chose 
 quoteInput.addEventListener("input", () => {
     const arrayQuote = quoteDisplay.querySelectorAll("span");
     const arrayValue = quoteInput.value.split("");
-    const userSelction = '';
+   // const userSelction = '';
     
     console.log(userDifficultyInput.value);
   // research how to get userDifficultyInput from user !!!!
-// create a varible that can store userSelection
-/*  if (userDifficultyInput.value === 'easy') {
-        userSelection = easy <= imported data
-} else if (userDifficultyInput.value === 'medium) {
-        userSelection = medium <= imported data
-*/
+  
+
+// create a varible that can store userSelection(variable called selectedDifficulty)
+
+  if (userDifficultyInput.value === 'easy') {
+        userSelection = easy; //<= imported data
+} else if (userDifficultyInput.value === 'medium') {
+        userSelection = medium; //<= imported data
+} else if (userDifficultyInput.value ==='hard') {
+        userSelection = hard;
+} else console.log('error');
+
+
+    
 
 // option to add and delete scores 
 // [{}] using amount of letters as 100% / time
@@ -58,7 +75,7 @@ function getQuote(quotes) {
 }
 
 function getNextQuote() {
-    console.log(userSelection);
+    //console.log(userSelection);
     
   const quote = getQuote(userSelection);
   //following is empty for usser input
