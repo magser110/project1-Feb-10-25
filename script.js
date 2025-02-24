@@ -1,6 +1,15 @@
-import { easy, medium, hard} from "./data/data.js";
+//import { easy, medium, hard} from "./data/data.js";
 
- 
+const easy = [
+  "The sun rises in the east.", "Cats are small and furry.", "The sky is blue.", "Trees give us oxygen.", 
+  "Rain falls from the clouds.", "Birds can fly.", "Apples grow on trees.", "Fish swim in water.", 
+  "The moon shines at night.", "Dogs are loyal animals.", "Flowers bloom in spring.", "Books tell stories.", 
+  "Water is essential for life.", "The grass is green.", "Summer is hot.", "Winter is cold.", 
+  "Bees make honey.", "Milk comes from cows.", "Cars run on fuel.", "Butterflies are colorful.", 
+  "Pizza is delicious.", "Mountains are tall.", "Rivers flow into the sea.", "Chickens lay eggs.", 
+  "The clock tells time.", "Stars twinkle at night.", "Ice is frozen water.", "Bananas are yellow.", 
+  "Fire is hot.", "Chocolate is sweet."
+];
 
 
 const quoteDisplay = document.getElementById("quote-display");
@@ -17,7 +26,7 @@ const userAccuracy = document.getElementById("user-accuracy");
 quoteInput.addEventListener("input", () => {
     const arrayQuote = quoteDisplay.querySelectorAll("span");
     const arrayValue = quoteInput.value.split("");
-   // const userSelction = '';
+    const userSelction = '';
     
     console.log(userDifficultyInput.value);
   // research how to get userDifficultyInput from user !!!!
@@ -28,7 +37,7 @@ quoteInput.addEventListener("input", () => {
     //following logs input to console
     console.log(userSelection);
 
-    // create a varible that can store userSelection(variable called selectedDifficulty)
+    // create a varible that can store userSelection(variable called userSelection)
 
       if (userDifficultyInput.value === 'easy') {
             userSelection = easy; //<= imported data
@@ -37,9 +46,9 @@ quoteInput.addEventListener("input", () => {
     } else if (userDifficultyInput.value ==='hard') {
             userSelection = hard;
     } else console.log('error');
+  });
 
-// option to add and delete scores 
-// [{}] using amount of letters as 100% / time
+function checkingQuoteInput() {
   let typedCharacter = 0;
   let userError = 0;
   let totalUserError = 0;
@@ -66,9 +75,8 @@ quoteInput.addEventListener("input", () => {
     }
   });
   if (correct) getNextQuote();
-}
 
-  //following gives # of errors
+    //following gives # of errors
   quoteError.textContent = totalUserError + userError;
   //checking for accuracy
   let correctQuoteCharacters = (typedCharacter - (totalUserError + userError));
@@ -81,7 +89,9 @@ quoteInput.addEventListener("input", () => {
 
     //update total erros
     totalUserError += userError;
-  });
+}
+}
+
 
 function getQuote(quotes) {
   // following gets random quote from array
