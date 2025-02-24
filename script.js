@@ -1,16 +1,4 @@
-//import { easy, medium, hard} from "./data/data.js";
-
-const easy = [
-  "The sun rises in the east.", "Cats are small and furry.", "The sky is blue.", "Trees give us oxygen.", 
-  "Rain falls from the clouds.", "Birds can fly.", "Apples grow on trees.", "Fish swim in water.", 
-  "The moon shines at night.", "Dogs are loyal animals.", "Flowers bloom in spring.", "Books tell stories.", 
-  "Water is essential for life.", "The grass is green.", "Summer is hot.", "Winter is cold.", 
-  "Bees make honey.", "Milk comes from cows.", "Cars run on fuel.", "Butterflies are colorful.", 
-  "Pizza is delicious.", "Mountains are tall.", "Rivers flow into the sea.", "Chickens lay eggs.", 
-  "The clock tells time.", "Stars twinkle at night.", "Ice is frozen water.", "Bananas are yellow.", 
-  "Fire is hot.", "Chocolate is sweet."
-];
-
+import { easy, medium, hard} from "./data/data.js";
 
 const quoteDisplay = document.getElementById("quote-display");
 const quoteInput = document.getElementById("quote-input");
@@ -20,32 +8,47 @@ const timer = document.getElementById("timer");
 const userDifficultyInput = document.getElementById("userSelect"); 
 const quoteError = document.getElementById("user-error");
 const userAccuracy = document.getElementById("user-accuracy");
+let userSelection = '';
+let difficulty = '';
+
+// const startSpeedTest() {
+//   // listens for a anykey 
+//   // p tag "press Enter key to start"
+//   //following gets difficulty selection from user
+//     let difficultySelection = userDifficultyInput.ownerDocument.getSelection();
+//     userSelection = difficultySelection.toString();
+
+//   // WHEN the start keydown is pressed at that point it checks for difficulty and then renders to page
+//   // addEventListener('keydown', () => {
+//     // if (key.value === "Enter") {
+//       // }
+//         // if (userDifficultyInput.value === 'easy') {
+//     //       userSelection = easy; //<= imported data
+          
+//     // } else if (userDifficultyInput.value === 'medium') {
+//     //       userSelection = medium; //<= imported data
+//     // } else if (userDifficultyInput.value ==='hard') {
+//     //       userSelection = hard;
+//     // } else console.log('error');
+//       // })
+    
+  
+// }
 
 
+// the only thing you want to be checking on every keystroke is the char against char
 ///which ever one they chose 
 quoteInput.addEventListener("input", () => {
     const arrayQuote = quoteDisplay.querySelectorAll("span");
     const arrayValue = quoteInput.value.split("");
-    const userSelction = '';
-    
-    console.log(userDifficultyInput.value);
+
+    // checkingQuoteInput()
   // research how to get userDifficultyInput from user !!!!
-  //following gets difficulty selection from user
-    const difficultySelection = userDifficultyInput.ownerDocument.getSelection();
     //following store selection as a string
-    const userSelection = difficultySelection.toString();
     //following logs input to console
-    console.log(userSelection);
 
     // create a varible that can store userSelection(variable called userSelection)
 
-      if (userDifficultyInput.value === 'easy') {
-            userSelection = easy; //<= imported data
-    } else if (userDifficultyInput.value === 'medium') {
-            userSelection = medium; //<= imported data
-    } else if (userDifficultyInput.value ==='hard') {
-            userSelection = hard;
-    } else console.log('error');
   });
 
 function checkingQuoteInput() {
@@ -74,6 +77,7 @@ function checkingQuoteInput() {
       userError++;
     }
   });
+  
   if (correct) getNextQuote();
 
     //following gives # of errors
@@ -111,12 +115,15 @@ function getNextQuote() {
 
   quote.split("").forEach((character) => {
     const characterSpan = document.createElement("span");
+    console.log(characterSpan);
+    
     characterSpan.innerText = character;
     quoteDisplay.appendChild(characterSpan);
   });
   quoteInput.value = null;
   startTimer();
 }
+getNextQuote();
 
 let startTime;
 function startTimer() {
