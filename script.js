@@ -9,13 +9,9 @@ const timer = document.getElementById("timer");
 // research how to get user selection from user !!!!
 //following calls difficulty elements from html
 const userDifficultyInput = document.getElementById("userSelect"); 
+const quoteError = document.getElementById("user-error");
+const userAccuracy = document.getElementById("user-accuracy");
 
-//following gets difficulty selection from user
-const difficultySelection = userDifficultyInput.ownerDocument.getSelection();
-//following store selection as a string
-const userSelection = difficultySelection.toString();
-//following logs input to console
-console.log(userSelection);
 
 ///which ever one they chose 
 quoteInput.addEventListener("input", () => {
@@ -25,24 +21,28 @@ quoteInput.addEventListener("input", () => {
     
     console.log(userDifficultyInput.value);
   // research how to get userDifficultyInput from user !!!!
-  
+  //following gets difficulty selection from user
+    const difficultySelection = userDifficultyInput.ownerDocument.getSelection();
+    //following store selection as a string
+    const userSelection = difficultySelection.toString();
+    //following logs input to console
+    console.log(userSelection);
 
-// create a varible that can store userSelection(variable called selectedDifficulty)
+    // create a varible that can store userSelection(variable called selectedDifficulty)
 
-  if (userDifficultyInput.value === 'easy') {
-        userSelection = easy; //<= imported data
-} else if (userDifficultyInput.value === 'medium') {
-        userSelection = medium; //<= imported data
-} else if (userDifficultyInput.value ==='hard') {
-        userSelection = hard;
-} else console.log('error');
-
-
-    
+      if (userDifficultyInput.value === 'easy') {
+            userSelection = easy; //<= imported data
+    } else if (userDifficultyInput.value === 'medium') {
+            userSelection = medium; //<= imported data
+    } else if (userDifficultyInput.value ==='hard') {
+            userSelection = hard;
+    } else console.log('error');
 
 // option to add and delete scores 
 // [{}] using amount of letters as 100% / time
-
+  let typedCharacter = 0;
+  let userError = 0;
+  let totalUserError = 0;
   let correct = true;
   arrayQuote.forEach((characterSpan, index) => {
     const character = arrayValue[index];
@@ -62,10 +62,26 @@ quoteInput.addEventListener("input", () => {
       characterSpan.classList.remove("correct");
       characterSpan.classList.add("incorrect");
       correct = false;
+      userError++;
     }
   });
   if (correct) getNextQuote();
-});
+}
+
+  //following gives # of errors
+  quoteError.textContent = totalUserError + userError;
+  //checking for accuracy
+  let correctQuoteCharacters = (typedCharacter - (totalUserError + userError));
+  let accuracy = ((correctQuoteCharacters/ typedCharacter) * 100);
+  userAccuracy.textContent = Math.round(accuracy);
+
+  //checking for text if typed
+  if (quoteInput.length == character.length) {
+    getNextQuote();
+
+    //update total erros
+    totalUserError += userError;
+  });
 
 function getQuote(quotes) {
   // following gets random quote from array
@@ -104,19 +120,3 @@ function startTimer() {
 function getTimerTime() {
   return Math.floor((new Date() - startTime) / 1000);
 }
-
-// const RANDOM_QUOTE_API_URL = 'https://zenquotes.io/api/random';
-
-// function getQuote() {
-//     return fetch(RANDOM_QUOTE_API_URL)
-//     .then(response => response.json())
-//     .then(data => data.content)
-// }
-
-// async function getNextQuote() {
-//     const quote = await getQuote()
-//     console.log(quote)
-
-// }
-
-// getNextQuote();
