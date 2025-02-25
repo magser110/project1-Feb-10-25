@@ -6,13 +6,31 @@ const timer = document.getElementById("timer");
 const userDifficultyInput = document.getElementById("userSelect"); 
 const quoteError = document.getElementById("user-error");
 const userAccuracy = document.getElementById("user-accuracy");
+let timerStarted = false;
 
 
-let difficulty = 'easy';
-
-const arrayQuote = quoteDisplay.querySelectorAll("span");
-const arrayValue = quoteInput.value.split("");
+let difficulty = easy;
 let startTime;
+
+
+
+
+function updateDifficulty(){
+  const userSelection = userDifficultyInput.value;
+  if (userSelection === 'easy') {
+        difficulty = easy;   
+  } else if (userSelection === 'medium') {
+        difficulty = medium; 
+  } else if (userSelection ==='hard') {
+        difficulty = hard;
+  }
+}
+
+function getQuote(quotes) {
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  console.log(randomQuote);
+  return randomQuote;
+}
 
 function startTimer() {
   timer.innerText = 0;
@@ -26,11 +44,7 @@ function getTimerTime() {
   return Math.floor((new Date() - startTime) / 1000);
 }
 
-function getQuote(quotes) {
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    console.log(randomQuote);
-    return randomQuote;
-  }
+
 
   function getNextQuote() {
   const quote = getQuote(difficulty);
@@ -39,39 +53,22 @@ function getQuote(quotes) {
 
   quote.split("").forEach((character) => {
     const characterSpan = document.createElement("span");
-    console.log(characterSpan);
     characterSpan.innerText = character;
     quoteDisplay.appendChild(characterSpan);
   });
   quoteInput.value = null;
-  startTimer();
 }
 
-function startSpeedTest() {
-//   // listens for a anykey 
-//   // p tag "press Enter key to start"
-//   //following gets difficulty selection from user
-    
-
-//   // WHEN the start keydown is pressed at that point it checks for difficulty and then renders to page
-//i know the following line is wrong lol
-  userDifficultyInput.addEventListener('change', (value) => {
-    const userSelection = userDifficultyInput.value;
-    if (userSelection === 'easy') {
-          difficulty = easy;   
-    } else if (userSelection === 'medium') {
-          difficulty = medium; 
-    } else if (userSelection ==='hard') {
-          difficulty = hard;
-    }
-getNextQuote();
-})
 
 function checkingQuoteInput() {
+    const arrayQuote = quoteDisplay.querySelectorAll("span");
+    const arrayValue = quoteInput.value.split("");
+
     let typedCharacter = 0;
     let userError = 0;
     let totalUserError = 0;
-    let correct = true;
+    let correct = false;
+
     arrayQuote.forEach((characterSpan, index) => {
       const character = arrayValue[index];
        if (character == null) {
@@ -90,15 +87,39 @@ function checkingQuoteInput() {
         userError++;
       }
     });
-    
-    if (correct) getNextQuote();
 
     quoteError.textContent = totalUserError + userError;
+
+    if (typedCharacter > 0) {
     let correctQuoteCharacters = (typedCharacter - (totalUserError + userError));
     let accuracy = ((correctQuoteCharacters/ typedCharacter) * 100);
     userAccuracy.textContent = Math.round(accuracy);
-    if (quoteInput.length == arrayQuote.length) {
+    } else {
+      userAccuracy.textContent = 0;
+    }
+    if (arrayValue.length === arrayQuote.length) {
       getNextQuote();
       totalUserError += userError;
   }
-  
+}
+
+function startSpeedTest() {
+  userDifficultyInput.addEventListener('change', () => {
+  updateDifficulty();
+  getNextQuote();
+  })
+
+  updateDifficulty();
+  getNextQuote();
+  quoteInput.addEventListener("input", () => {
+    if (!timerStarted) {
+      timerStarted = true;
+      startTimer();
+    }
+    checkingQuoteInput();
+  });
+
+  getNextQuote();
+}
+
+document.addEventListener("DOMContentLoaded", startSpeedTest);
