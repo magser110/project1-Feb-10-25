@@ -10,7 +10,7 @@ const quoteError = document.getElementById("user-error");
 const userAccuracy = document.getElementById("user-accuracy");
 
 let userSelection = '';
-let difficulty = '';
+let difficulty = 'easy';
 
 
 const arrayQuote = quoteDisplay.querySelectorAll("span");
@@ -26,8 +26,9 @@ function startSpeedTest() {
 
 //   // WHEN the start keydown is pressed at that point it checks for difficulty and then renders to page
 //i know the following line is wrong lol
-  document.addEventListener('keydown', (key) => {
-    if (key.value === "Enter") {
+  userDifficultyInput.addEventListener('change', (value) => {
+    console.log('userDiffculty', value)
+    if (value === "Enter") {
       let userSelection;
       if (userDifficultyInput.value === 'easy') {
           difficulty = easy; //<= imported data  

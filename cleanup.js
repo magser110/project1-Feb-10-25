@@ -7,8 +7,8 @@ const userDifficultyInput = document.getElementById("userSelect");
 const quoteError = document.getElementById("user-error");
 const userAccuracy = document.getElementById("user-accuracy");
 
-let userSelection = '';
-let difficulty = '';
+
+let difficulty = 'easy';
 
 const arrayQuote = quoteDisplay.querySelectorAll("span");
 const arrayValue = quoteInput.value.split("");
@@ -51,25 +51,21 @@ function startSpeedTest() {
 //   // listens for a anykey 
 //   // p tag "press Enter key to start"
 //   //following gets difficulty selection from user
-    let userSelection = userDifficultyInput.value;
+    
 
 //   // WHEN the start keydown is pressed at that point it checks for difficulty and then renders to page
 //i know the following line is wrong lol
-  document.addEventListener('keydown', (key) => {
-    if (key.value === "Enter") {
-      let userSelection;
-      if (userDifficultyInput.value === 'easy') {
-          difficulty = easy; //<= imported data  
-    } else if (userDifficultyInput.value === 'medium') {
-          difficulty = medium; //<= imported data
-    } else if (userDifficultyInput.value ==='hard') {
+  userDifficultyInput.addEventListener('change', (value) => {
+    const userSelection = userDifficultyInput.value;
+    if (userSelection === 'easy') {
+          difficulty = easy;   
+    } else if (userSelection === 'medium') {
+          difficulty = medium; 
+    } else if (userSelection ==='hard') {
           difficulty = hard;
-    } else {
-      console.log('error');
-      return;
-}
+    }
 getNextQuote();
-}})}
+})
 
 function checkingQuoteInput() {
     let typedCharacter = 0;
@@ -105,4 +101,4 @@ function checkingQuoteInput() {
       getNextQuote();
       totalUserError += userError;
   }
-  }
+  
