@@ -6,15 +6,16 @@ const timer = document.getElementById("timer");
 const userDifficultyInput = document.getElementById("userSelect"); 
 const quoteError = document.getElementById("user-error");
 const userAccuracy = document.getElementById("user-accuracy");
+const restartButton = document.getElementById("restart");
 let timerStarted = false;
 let totalUserError = 0;
 let totalAccuracy = 100;
 let totalCharactersTyped = 0; 
 let difficulty = easy;
 let time = 0;
-
-
-
+let timeLimit = 15;
+let timeLeft = timeLimit;
+let timerInterval;
 
 function updateDifficulty(){
   const userSelection = userDifficultyInput.value;
@@ -34,10 +35,21 @@ function getQuote(quotes) {
 }
 
 function startTimer() {
-  timer.innerText = 0;
-  setInterval(() => {
-    time += 1;
-    timer.innerText = time;
+  //timer.innerText = 0;
+  time = timeLimit;
+  timer.innerText = timeLeft;
+  const interval = setInterval(() => {
+    if (time === 1) {
+      timer.setAttribute("style", "color: red;")
+      timer.textContent = "Game Over"
+      clearInterval(interval)
+    } else {
+      time--;
+      timer.innerText = time;
+    }
+    if (timeLeft <= 0) {
+      endGame();
+    }
   }, 1000);
 }
 
@@ -54,7 +66,6 @@ function startTimer() {
   });
   quoteInput.value = null;
 }
-
 
 function checkingQuoteInput() {
     const arrayQuote = quoteDisplay.querySelectorAll("span");
@@ -103,7 +114,7 @@ function checkingQuoteInput() {
       totalAccuracy = Math.max(0, Math.min(100, totalAccuracy));
       userAccuracy.textContent = Math.round(totalAccuracy) + '%'
      }
-
+     
       getNextQuote();
   }
 }
@@ -129,7 +140,24 @@ document.addEventListener("DOMContentLoaded", startSpeedTest);
 
 function restartGame() {
   timerStarted = false;
+  timeLeft = timeLimit;
+  clearInterval(timerInterval);
   totalCharactersTyped = 0;
   totalAccuracy = 0; 
   totalUserError = 0;
+  
+  quoteInput.value = "";
+  quoteDisplay.textContent = "start game or change difficulty"
+  quoteError.textContent = "0";
+  userAccuracy.textContent = "100%"
+  
+  updateDifficulty();
+  getNextQuote();
+}
+restartButton.addEventListener("click", restartGame);
+
+function endGame() {
+  clearInterval(timerInterval);
+  quoteInput.disabled = true;
+  quoteDisplay.textContent = "times up"
 }
