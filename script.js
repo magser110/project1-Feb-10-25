@@ -8,48 +8,56 @@ const timer = document.getElementById("timer");
 const userDifficultyInput = document.getElementById("userSelect"); 
 const quoteError = document.getElementById("user-error");
 const userAccuracy = document.getElementById("user-accuracy");
+
 let userSelection = '';
 let difficulty = '';
 
-// const startSpeedTest() {
+
+const arrayQuote = quoteDisplay.querySelectorAll("span");
+const arrayValue = quoteInput.value.split("");
+
+function startSpeedTest() {
 //   // listens for a anykey 
 //   // p tag "press Enter key to start"
 //   //following gets difficulty selection from user
-//     let difficultySelection = userDifficultyInput.ownerDocument.getSelection();
-//     userSelection = difficultySelection.toString();
+    //  let difficultySelection = userDifficultyInput.ownerDocument.getSelection();
+    //  userSelection = difficultySelection.toString();
+    let userSelection = userDifficultyInput.value;
 
 //   // WHEN the start keydown is pressed at that point it checks for difficulty and then renders to page
-//   // addEventListener('keydown', () => {
-//     // if (key.value === "Enter") {
-//       // }
-//         // if (userDifficultyInput.value === 'easy') {
-//     //       userSelection = easy; //<= imported data
-          
-//     // } else if (userDifficultyInput.value === 'medium') {
-//     //       userSelection = medium; //<= imported data
-//     // } else if (userDifficultyInput.value ==='hard') {
-//     //       userSelection = hard;
-//     // } else console.log('error');
-//       // })
-    
-  
-// }
+//i know the following line is wrong lol
+  document.addEventListener('keydown', (key) => {
+    if (key.value === "Enter") {
+      let userSelection;
+      if (userDifficultyInput.value === 'easy') {
+          difficulty = easy; //<= imported data  
+    } else if (userDifficultyInput.value === 'medium') {
+          difficulty = medium; //<= imported data
+    } else if (userDifficultyInput.value ==='hard') {
+          difficulty = hard;
+    } else {
+      console.log('error');
+      return;
+}
+getNextQuote();
+}})}
 
+startSpeedTest();
 
 // the only thing you want to be checking on every keystroke is the char against char
-///which ever one they chose 
-quoteInput.addEventListener("input", () => {
-    const arrayQuote = quoteDisplay.querySelectorAll("span");
-    const arrayValue = quoteInput.value.split("");
+// ///which ever one they chose 
+// quoteInput.addEventListener("input", () => {
+//     const arrayQuote = quoteDisplay.querySelectorAll("span");
+//     const arrayValue = quoteInput.value.split("");
 
-    // checkingQuoteInput()
-  // research how to get userDifficultyInput from user !!!!
-    //following store selection as a string
-    //following logs input to console
+//     // checkingQuoteInput()
+//   // research how to get userDifficultyInput from user !!!!
+//     //following store selection as a string
+//     //following logs input to console
 
-    // create a varible that can store userSelection(variable called userSelection)
+//     // create a varible that can store userSelection(variable called userSelection)
 
-  });
+//   });
 
 function checkingQuoteInput() {
   let typedCharacter = 0;
@@ -88,14 +96,14 @@ function checkingQuoteInput() {
   userAccuracy.textContent = Math.round(accuracy);
 
   //checking for text if typed
-  if (quoteInput.length == character.length) {
+  if (quoteInput.length == arrayQuote.length) {
     getNextQuote();
 
     //update total erros
     totalUserError += userError;
 }
 }
-
+checkingQuoteInput();
 
 function getQuote(quotes) {
   // following gets random quote from array
@@ -107,7 +115,8 @@ function getQuote(quotes) {
 function getNextQuote() {
     //console.log(userSelection);
     
-  const quote = getQuote(userSelection);
+  //const quote = getQuote(userSelection);
+  const quote = getQuote(difficulty);
   //following is empty for usser input
   quoteDisplay.innerHTML = "";
   //following is splitting each letter from quote and creating a new span so we can check user input in the future(correct or incorrect)
