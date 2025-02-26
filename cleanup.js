@@ -1,7 +1,7 @@
 import { easy, medium, hard} from "./data/data.js";
 
 const quoteDisplay = document.getElementById("quote-display");
-const quoteInput = document.getElementById("quote-input");
+const quoteInput = document.querySelector(".quote-input");
 const timer = document.getElementById("timer");
 const userDifficultyInput = document.getElementById("userSelect"); 
 const quoteError = document.getElementById("user-error");
@@ -13,7 +13,7 @@ let totalAccuracy = 100;
 let totalCharactersTyped = 0; 
 let difficulty = easy;
 let time = 0;
-let timeLimit = 15;
+let timeLimit = 5;
 let timeLeft = timeLimit;
 let timerInterval;
 
@@ -42,14 +42,16 @@ function startTimer() {
     if (time === 1) {
       timer.setAttribute("style", "color: red;")
       timer.textContent = "Game Over"
+
+      endGame();
       clearInterval(interval)
     } else {
       time--;
       timer.innerText = time;
     }
-    if (timeLeft <= 0) {
-      endGame();
-    }
+
+
+
   }, 1000);
 }
 
@@ -157,7 +159,6 @@ function restartGame() {
 restartButton.addEventListener("click", restartGame);
 
 function endGame() {
-  clearInterval(timerInterval);
-  quoteInput.disabled = true;
+  quoteInput.setAttribute('disabled', '')
   quoteDisplay.textContent = "times up"
 }
