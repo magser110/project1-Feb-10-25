@@ -13,7 +13,7 @@ let totalAccuracy = 100;
 let totalCharactersTyped = 0; 
 let difficulty = easy;
 let time = 0;
-let timeLimit = 5;
+let timeLimit = 60;
 let timeLeft = timeLimit;
 let timerInterval;
 
