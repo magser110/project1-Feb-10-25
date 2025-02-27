@@ -9,18 +9,7 @@
     <title>Speed Typing Test</title>
 </head>
 <body>
-    <!-- select element 
-     option elements easy medium hard -->
-     <select name="" id="userSelect">
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-     </select>
     <div class="timer" id="timer"></div>
-    <div class="container">
-        <div class="quote-display" id="quote-display"></div>
-        <textarea class="quote-input" id="quote-input" autofocus></textarea>
-    </div>
     <div class="errors">
         <div class="error-header">Errors</div>
         <div class="user-error" id="user-error">0</div>
@@ -28,8 +17,16 @@
     <div class="accuracy">
         <div class="accuracy-header">Accuracy</div>
         <div class="user-accuracy" id="user-accuracy"></div>
+    <div class="container">
+        <div class="quote-display" id="quote-display"></div>
+        <textarea class="quote-input" id="quote-input" autofocus></textarea>
     </div>
-    <button id="restart" onclick>Restart</button>
+    <select name="" class="button" id="userSelect">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+     </select>
+    <button class="button" id="restart" onclick>Restart</button>
     
 </body>
 </html>
