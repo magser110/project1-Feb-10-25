@@ -163,5 +163,5 @@ restartButton.addEventListener("click", restartGame);
 
 function endGame() {
   quoteInput.setAttribute('disabled', '')
-  quoteDisplay.textContent = "times up"
+  quoteDisplay.textContent = "Time is up!"
 }
