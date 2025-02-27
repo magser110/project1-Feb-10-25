@@ -43,15 +43,13 @@ function startTimer() {
       timer.setAttribute("style", "color: red;")
       timer.textContent = "Game Over"
 
+      
       endGame();
       clearInterval(interval)
     } else {
       time--;
       timer.innerText = time;
     }
-
-
-
   }, 1000);
 }
 
@@ -141,20 +139,25 @@ function startSpeedTest() {
 document.addEventListener("DOMContentLoaded", startSpeedTest);
 
 function restartGame() {
-  timerStarted = false;
-  timeLeft = timeLimit;
-  clearInterval(timerInterval);
-  totalCharactersTyped = 0;
-  totalAccuracy = 0; 
-  totalUserError = 0;
+  // timerStarted = false;
+  // timeLeft = timeLimit;
+  // clearInterval(timerInterval);
+  // totalCharactersTyped = 0;
+  // totalAccuracy = 0; 
+  // totalUserError = 0;
   
-  quoteInput.value = "";
-  quoteDisplay.textContent = "start game or change difficulty"
-  quoteError.textContent = "0";
-  userAccuracy.textContent = "100%"
   
-  updateDifficulty();
-  getNextQuote();
+  // quoteInput.value = "";
+  // quoteDisplay.textContent = "start game or change difficulty"
+  // quoteError.textContent = "0";
+  // userAccuracy.textContent = "100%"
+  // timer.textContent = "5";
+  
+  // updateDifficulty();
+  // startSpeedTest();
+  // getNextQuote();
+  
+  document.location.reload();
 }
 restartButton.addEventListener("click", restartGame);
 

@@ -64,3 +64,8 @@ body, .quote-input {
     color: red;
     text-decoration: underline;
 }
+
+.error-header {
+    position: relative;
+    ;
+}
